@@ -13,6 +13,11 @@ export default {
 
     theme: {
         extend: {
+            colors: {
+                'sjg-dark-green': '#08353E',
+                'sjg-green': '#0C505D',
+                'sjg-lightgreen': '#00A7B5',
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },

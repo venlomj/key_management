@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Keys;
 use Illuminate\Support\Facades\Route;
 
 Route::get('user', function () {
@@ -12,14 +13,16 @@ Route::view('playground', 'playground')->name('playground');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::redirect('/', '/admin/keys');
-    Route::get('keys', function () {
-        $keys = [
-            'Sleutel 1',
-            'Sleutel 2',
-            'Sleutel 3'
-        ];
-        return view('admin.keys.index', compact('keys'));
-    })->name('keys');
+    Route::get('keys', Keys::class)->name('keys');
+    Route::get('person', Keys::class)->name('person');
+//    Route::get('keys', function () {
+//        $keys = [
+//            'Sleutel 1',
+//            'Sleutel 2',
+//            'Sleutel 3'
+//        ];
+//        return view('admin.keys.index', compact('keys'));
+//    })->name('keys');
 });
 
 Route::middleware([

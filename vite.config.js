@@ -11,4 +11,10 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    server: {
+        host: 'key_management.test',  // The URL you want to use
+        // port: 3000,                      // Set to 80 for HTTP
+        https: false,                  // Disable HTTPS
+        open: true,                    // Automatically open in the browser
+    },
 });
