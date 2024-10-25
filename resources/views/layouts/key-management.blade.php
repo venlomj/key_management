@@ -13,7 +13,7 @@
 </head>
 <body class="font-sans antialiased">
 <div x-data="{ open: true }" class="flex min-h-screen text-gray-800 bg-gray-100">
-    <aside :class="open ? 'w-64' : 'w-16'" class="bg-blue-900 shadow-md p-4 transition-all duration-300">
+    <aside :class="open ? 'w-64' : 'w-16'" class="bg-sjg-green shadow-md p-4 transition-all duration-300">
         <button @click="open = !open" class="mb-4 text-white focus:outline-none">
             <i :class="open ? 'fas fa-chevron-left' : 'fas fa-chevron-right'"></i>
         </button>

@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sleutels', function (Blueprint $table) {
+        Schema::create('user_keys', function (Blueprint $table) {
             $table->id();
-            $table->string('sleutel_code')->unique();
-            $table->string('sleutel_type');
-            $table->string('afbeelding')->nullable();
-            $table->string('afbeelding_embedded')->nullable();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('key_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->dateTime('loaned_at')->nullable();
+            $table->dateTime('returned_at')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sleutels');
+        Schema::dropIfExists('user_keys');
     }
 };

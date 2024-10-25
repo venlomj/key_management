@@ -13,7 +13,23 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('account_id')->unique(); //id van de account
+            $table->string('last_name');
+            $table->string('first_name');
+            $table->boolean('active')->default(true);
+            $table->boolean('admin')->default(false);
+            //$table->decimal('deposit_amount', 10, 2);
+            //$table->boolean('deposit_paid')->default(false);
+            $table->string('employee_id')->unique();
+            $table->string('school');
+            //$table->string('class');
+            $table->string('search_field')->nullable();
+            $table->date('date_of_birth');
+            $table->string('preferred_name');
+            $table->boolean('to_keep')->default(false);
+            //$table->string('payment_method')->nullable();
+
+            //Laravel common fields
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

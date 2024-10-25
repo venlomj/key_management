@@ -24,10 +24,21 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'account_id',
+        'last_name',
+        'first_name',
+        'active',
+        'admin',
+        'employee_id',
+        'school',
+        'search_field',
+        'date_of_birth',
+        'preferred_name',
+        'to_keep',
         'email',
         'password',
     ];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -61,5 +72,15 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function keys()
+    {
+        return $this->belongsToMany(Key::class, 'user_keys')->withPivot('loaned_at', 'returned_at', 'deposit_amount', 'deposit_refunded');
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
     }
 }

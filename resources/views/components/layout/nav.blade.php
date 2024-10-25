@@ -19,5 +19,11 @@
                 <span x-show="open">Sleutels</span>
             </a>
         </li>
+        <li>
+            <a href="{{ route('admin.person') }}" class="flex items-center text-white hover:bg-blue-700 p-2 rounded">
+                <i class="fas fa-user mr-2" x-show="open"></i>
+                <span x-show="open">Personen</span>
+            </a>
+        </li>
     </ul>
 </nav>
