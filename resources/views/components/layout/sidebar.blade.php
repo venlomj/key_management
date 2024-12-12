@@ -5,8 +5,96 @@
 {{--    </div>--}}
     {{--    <ul class="mt-8 space-y-3 md:mt-20">--}}
     <ul class="flex flex-col h-full mt-8 space-y-3 md:mt-20">
-        {{--        part one--}}
-        @auth
+        <li class="relative">
+            <a href="/" class="focus:bg-slate-600 hover:bg-slate-600 flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
+                {{ svg('ri-dashboard-horizontal-fill', 'w-5 h-5 mr-2') }}
+                <span>Dasboard</span>
+            </a>
+        </li>
+{{--        <li class="relative">--}}
+{{--            <a href="#" class="flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">--}}
+{{--                <i class=''></i>--}}
+{{--                <span class="link_name">Dashboard</span>--}}
+{{--            </a>--}}
+{{--        </li>--}}
+{{--        <li class="relative" x-data="{ openUserManagement: false }">--}}
+{{--            <a href="#"--}}
+{{--               class="flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none"--}}
+{{--               @click="openUserManagement = !openUserManagement">--}}
+{{--                <i class=''></i>--}}
+{{--                <span class="link_name">Gebruikersbeheer</span>--}}
+{{--            </a>--}}
+{{--            <ul class="sub-menu bg-footer-background relative space-x-2 left-0 w-full px-10"--}}
+{{--                x-show="openUserManagement"--}}
+{{--                x-transition:enter="transition ease-out duration-200"--}}
+{{--                x-transition:enter-start="opacity-0 scale-95"--}}
+{{--                x-transition:enter-end="opacity-100 scale-100"--}}
+{{--                x-transition:leave="transition ease-in duration-150"--}}
+{{--                x-transition:leave-start="opacity-100 scale-100"--}}
+{{--                x-transition:leave-end="opacity-0 scale-95"--}}
+{{--                x-cloak>--}}
+{{--                <li><a href="#">Overzicht</a></li>--}}
+{{--                <li><a href="#">Lijsten</a></li>--}}
+{{--            </ul>--}}
+{{--        </li>--}}
+        <li class="relative" x-data="{ openUserManagement: false }">
+            <button
+                @click="openUserManagement = !openUserManagement"
+                type="button"
+                class="focus:bg-slate-600 hover:bg-sidebar-dark-light flex items-center w-full space-x-2 rounded-md px-10 py-2 text-gray-300 focus:outline-none"
+                >
+                <span x-show="open" class="">Gebruikersbeheer</span>
+                <template x-if="!openUserManagement">
+                    <x-heroicon-o-chevron-down class="w-5 h-5 flex-shrink-0 transition-transform duration-200" />
+                </template>
+                <template x-if="openUserManagement">
+                    <x-heroicon-o-chevron-up class="w-5 h-5 flex-shrink-0 transition-transform duration-200" />
+                </template>
+            </button>
+            <ul class="py-2 space-y-2" x-show="openUserManagement" x-transition  :class="openUserManagement ? 'bg-sidebar-dark-light' : 'bg-primary'">
+                <li class="relative">
+                    <a href="/" class="focus:bg-slate-600 hover:bg-primary flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
+                        <x-phosphor-tree-view-duotone class="w-5 h-5 mr-2" />
+                        Overzicht</a>
+                </li>
+                <li class="relative">
+                    <a href="/" class="focus:bg-slate-600 hover:bg-primary flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
+                        <x-phosphor-list-bullets-duotone class="w-5 h-5 mr-2" />
+                        Lijsten</a>
+                </li>
+            </ul>
+        </li>
+            <li class="relative" x-data="{ openLaptoptool: false }">
+            <button
+                @click="openLaptoptool = !openLaptoptool"
+                type="button"
+                class="focus:bg-slate-600 hover:bg-sidebar-dark-light flex items-center w-full space-x-2 rounded-md px-10 py-2 text-gray-300 focus:outline-none">
+                <span x-show="open" class="">Laptoptool</span>
+                <template x-if="!openLaptoptool">
+                    <x-heroicon-o-chevron-down class="w-5 h-5 flex-shrink-0 transition-transform duration-200" />
+                </template>
+                <template x-if="openLaptoptool">
+                    <x-heroicon-o-chevron-up class="w-5 h-5 flex-shrink-0 transition-transform duration-200" />
+                </template>
+            </button>
+            <ul class="py-2 space-y-2" x-show="openLaptoptool" x-transition  :class="openLaptoptool ? 'bg-sidebar-dark-light' : 'bg-primary'">
+                <li class="relative">
+                    <a href="/" class="focus:bg-slate-600 hover:bg-primary flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
+                        <x-phosphor-laptop-duotone class="w-5 h-5 mr-2" />
+                        Toestellen</a>
+                </li>
+                <li class="relative">
+                    <a href="/" class="focus:bg-slate-600 hover:bg-primary flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
+                        <x-phosphor-trademark-registered-duotone class="w-5 h-5 mr-2" />
+                        Registraties</a>
+                </li>
+                <li class="relative">
+                    <a href="/" class="focus:bg-slate-600 hover:bg-primary flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
+                        <x-phosphor-list-bullets-duotone class="w-5 h-5 mr-2" />
+                        Lijsten</a>
+                </li>
+            </ul>
+        </li>
             <li class="relative">
                 <a href="/" class="focus:bg-slate-600 hover:bg-slate-600 flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
                     <i class="fas fa-users mr-2" :class="{'mr-2': open, 'mx-auto': !open, 'text-sm': !open}"></i>
@@ -25,20 +113,14 @@
                     <span x-show="open">Lokalen</span>
                 </a>
             </li>
-            {{--        end part one--}}
-            {{--        part two--}}
             <li class="relative !mt-14" x-data="{ openProfile: false }">
                 <button
                     @click="openProfile = !openProfile"
                     type="button"
-                    class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    class="focus:bg-slate-600 hover:bg-slate-600 flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none"
                     aria-controls="dropdown-example"
                     data-collapse-toggle="dropdown-example">
-                    <span>@livewire('partials.avatar')</span>
-                    <span class="flex-1 ml-3 text-left whitespace-nowrap">
-                @livewire('partials.name')
-        </span>
-
+                    <span x-show="open">Gebruikersbeheer</span>
                     <!-- Icon for toggling -->
                     <svg sidebar-toggle-item class="w-6 h-6"
                          fill="currentColor"
@@ -67,7 +149,6 @@
                         </form>
                     </li>
                 </ul>
-                @endauth
             </li>
 
 
