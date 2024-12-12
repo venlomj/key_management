@@ -9,8 +9,5 @@
         <x-nav-link href="{{ route('admin.classrooms') }}">
             Lokalen
         </x-nav-link>
-        <x-nav-link href="/">
-            Test
-        </x-nav-link>
     </div>
 </nav>

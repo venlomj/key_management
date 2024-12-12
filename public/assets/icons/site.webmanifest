@@ -1,6 +1,6 @@
 {
-  "name": "sjg",
-  "short_name": "sjg",
+  "name": "favicon",
+  "short_name": "https://key_management.test/",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

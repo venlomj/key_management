@@ -21,6 +21,7 @@ export default {
                 'kogeka-yellow': '#C5B300',
                 'light-background': '#f3f4f6',
                 'sidebar-dark': '#11101d',
+                'sidebar-dark-light': '#1e1c30',
                 'sidebar-hover': '#4a5568',
                 'topbar-background': 'rgba(255, 255, 255, 0.8)',
                 'footer-background': '#2d3748',

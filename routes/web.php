@@ -13,6 +13,7 @@ Route::get('admin/keys', Keys::class)->name('admin.keys');
 Route::get('admin/persons', Persons::class)->name('admin.persons');
 Route::get('admin/classrooms', Classrooms::class)->name('admin.classrooms');
 
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
