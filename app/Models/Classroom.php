@@ -21,11 +21,10 @@ class Classroom extends Model
         'second_specification',
     ];
 
-    public function scopeSearchClassroomNameOrCodeOrBlock($query, $search)
+    public function scopeSearchClassroomNameOrCode($query, $search)
     {
         return $query->where('classroom_name', 'like', '%'.$search.'%')
-            ->orWhere('classroom_code', 'like', '%'.$search.'%')
-            ->orWhere('classroom_block', 'like', '%'.$search.'%');
+            ->orWhere('classroom_code', 'like', '%'.$search.'%');
     }
 
     // Get the key_code

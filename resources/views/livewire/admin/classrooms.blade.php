@@ -1,16 +1,47 @@
 <div class="overflow-hidden h-screen">
-    {{-- Filter --}}
-    <x-kogeka.section class="mb-4 flex items-center gap-2">
-        <div class="flex-1">
-            <x-kogeka.form.search
-                placeholder="Zoek op klaslokaal naam, code of blok"
-                wire:model.live.debounce.500="search"
-                class="placeholder-gray-300" />
+    <div class="hidden fixed top-8 left-1/2 -translate-x-1/2 z-50 animate-pulse" wire:loading>
+        <x-kogeka.preloader class="bg-secondary-100 text-white border border-secondary-100 shadow-2xl">
+            {{ $loading }}
+        </x-kogeka.preloader>
+    </div>
+    {{--     Filter--}}
+    <x-kogeka.section class="mb-4">
+        {{-- filter section: search, block, institution --}}
+        <div class="grid grid-cols-12 gap-4 items-center">
+
+            <div class="col-span-12 md:col-span-3 lg:col-span-4">
+                <x-label for="classroom_block" value="Blok"/>
+                <x-kogeka.form.select id="classroom_block"
+                                      wire:model="classroom_block"
+                                      class="block mt-1 w-full">
+                    <option value="">-- Selecteer Blok --</option>
+                    @foreach ($classroomBlocks as $block)
+                        <option value="{{ $block }}">{{ $block }}</option>
+                    @endforeach
+                </x-kogeka.form.select>
+            </div>
+
+            <div class="col-span-12 md:col-span-3 lg:col-span-4">
+                <x-label for="institution" value="Instelling"/>
+                <x-kogeka.form.select id="institution"
+                                      wire:model="institution"
+                                      class="block mt-1 w-full">
+                    <option value="">-- Selecteer Instelling --</option>
+                    @foreach ($allInstitutions as $institution)
+                        <option value="{{ $institution->id }}">{{ $institution->name }}</option>
+                    @endforeach
+                </x-kogeka.form.select>
+            </div>
+
+            <!-- Search Field -->
+            <div class="col-span-12 md:col-span-6 lg:col-span-4">
+                <x-label for="filter" value="Zoekveld"/>
+                <x-kogeka.form.search
+                    placeholder="Zoek op klaslokaal naam of code"
+                    wire:model.live.debounce.500="search"
+                    class="placeholder-gray-300 w-full" />
+            </div>
         </div>
-        {{--        <x-kogeka.form.button color="info" class="mt-1"--}}
-        {{--                              wire:click="newKey()">--}}
-        {{--            Voeg sleutel toe--}}
-        {{--        </x-kogeka.form.button>--}}
     </x-kogeka.section>
     <x-kogeka.section>
         <div class="my-4 text-blue-400">{{ $classrooms->links() }}</div>
@@ -26,6 +57,9 @@
                     </th>
                     <th scope="col" class="px-4 py-2 sm:px-2 md:px-6 md:py-3">
                         Blok
+                    </th>
+                    <th scope="col" class="px-4 py-2 sm:px-2 md:px-6 md:py-3">
+                        Instelling
                     </th>
                     <th scope="col" class="px-4 py-2 sm:px-2 md:px-6 md:py-3">
                         Kort beschrijving
@@ -49,6 +83,9 @@
                         </td>
                         <td class="px-4 py-2 sm:px-2 md:px-6 md:py-4">
                             {{ $classroom->classroom_block ?? 'Geen sleutel type beschikbaar' }}
+                        </td>
+                        <td class="px-4 py-2 sm:px-2 md:px-6 md:py-4">
+                            {{ $classroom->institution->name ?? 'Geen instelling beschikbaar' }}
                         </td>
                         <td class="px-4 py-2 sm:px-2 md:px-6 md:py-4">
                             {{ $classroom->short_description ?? 'Geen beschrijving beschikbaar' }}
@@ -81,7 +118,7 @@
     </x-kogeka.section>
 
     {{-- Modal to update classroom key --}}
-    <x-dialog-modal id="keyModal" wire:model.live="showModal" class="w-full max-w-lg mx-auto p-4">
+    <x-dialog-modal id="keyModal" wire:model.live="showModal" class="w-full max-w-lg mx-auto p-4" maxWidth="4xl">
         <x-slot name="title">
             <h2 class="text-lg font-semibold text-center sm:text-left">
                 {{ is_null($form->key_id) ? 'Sleutel toevoegen' : 'Sleutel wijzigen' }}
@@ -109,15 +146,15 @@
                     </div>
                     <div class="mb-4">
                         <x-label for="classroom_description" value="Beschrijving" class="font-semibold text-gray-700" />
-                        <x-input id="classroom_description" wire:model.defer="form.classroom_description" rows="3" disabled>{{ $form->classroom_description }}</x-input>
+                        <x-input id="classroom_description" wire:model.defer="form.classroom_description" rows="3" disabled class="block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md">{{ $form->classroom_description }}</x-input>
                     </div>
                     <div class="mb-4">
                         <x-label for="short_description" value="Korte Beschrijving" class="font-semibold text-gray-700" />
-                        <x-input id="short_description" wire:model.defer="form.short_description" rows="2" disabled>{{ $form->short_description }}</x-input>
+                        <x-input id="short_description" wire:model.defer="form.short_description" rows="2" disabled class="block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md">{{ $form->short_description }}</x-input>
                     </div>
                     <div class="mb-4">
                         <x-label for="note" value="Opmerking" class="font-semibold text-gray-700" />
-                        <x-input id="note" wire:model.defer="form.note" rows="2" disabled>{{ $form->note }}</x-input>
+                        <x-input id="note" wire:model.defer="form.note" rows="2" disabled class="block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md">{{ $form->note }}</x-input>
                     </div>
                     <div class="mb-4">
                         <x-label for="first_specification" value="Eerste Specificatie" class="font-semibold text-gray-700" />

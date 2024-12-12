@@ -43,7 +43,8 @@
                 type="button"
                 class="focus:bg-slate-600 hover:bg-sidebar-dark-light flex items-center w-full space-x-2 rounded-md px-10 py-2 text-gray-300 focus:outline-none"
                 >
-                <span x-show="open" class="">Gebruikersbeheer</span>
+                <span x-show="open" class="">
+                    Gebruikersbeheer</span>
                 <template x-if="!openUserManagement">
                     <x-heroicon-o-chevron-down class="w-5 h-5 flex-shrink-0 transition-transform duration-200" />
                 </template>
@@ -96,19 +97,19 @@
             </ul>
         </li>
             <li class="relative">
-                <a href="/" class="focus:bg-slate-600 hover:bg-slate-600 flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
+                <a href="/" class="focus:bg-slate-600 hover:bg-slate-600 flex items-center w-full space-x-2 rounded-md px-10 py-2 text-gray-300 focus:outline-none">
                     <i class="fas fa-users mr-2" :class="{'mr-2': open, 'mx-auto': !open, 'text-sm': !open}"></i>
                     <span x-show="open">Personen</span>
                 </a>
             </li>
             <li class="relative">
-                <a href="/" class="focus:bg-slate-600 hover:bg-slate-600 flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
+                <a href="/" class="focus:bg-slate-600 hover:bg-slate-600 flex items-center w-full space-x-2 rounded-md px-10 py-2 text-gray-300 focus:outline-none">
                     <i class="fas fa-lock mr-2" :class="{'mr-2': open, 'mx-auto': !open, 'text-sm': !open}"></i>
                     <span x-show="open">Sleutels</span>
                 </a>
             </li>
             <li class="relative !mb-9">
-                <a href="/" class="focus:bg-slate-600 hover:bg-slate-600 flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
+                <a href="/" class="focus:bg-slate-600 hover:bg-slate-600 flex items-center w-full space-x-2 rounded-md px-10 py-2 text-gray-300 focus:outline-none">
                     <i class="fas fa-lock mr-2" :class="{'mr-2': open, 'mx-auto': !open, 'text-sm': !open}"></i>
                     <span x-show="open">Lokalen</span>
                 </a>
