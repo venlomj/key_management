@@ -104,8 +104,8 @@ class Persons extends Component
         // Pre-fill payment data if payment exists
         if ($person->payment) {
             // dump($person->payment);
-            $this->form->deposit_paid = (bool) $person->payment->deposit_paid;
-            $this->form->deposit_refunded = (bool) $person->payment->deposit_refunded;
+            $this->form->deposit_paid = $person->payment->deposit_paid;
+            $this->form->deposit_refunded = $person->payment->deposit_refunded;
             $this->form->payment_method = $person->payment->payment_method;
             $this->form->deposit_amount = $person->payment->deposit_amount;
         }
@@ -118,8 +118,23 @@ class Persons extends Component
 
     public function updatePerson(User $person)
     {
-        $this->form->institutions = $this->institutions;
+        // $this->form->institutions = $this->institutions;
+
         $this->form->update($person);
+
+        // Now update the related institutions for this person
+        $person->institutions()->sync($this->form->institutions);
+
+        // Handle payment data if necessary
+        if ($person->payment) {
+            $person->payment->update([
+                'deposit_paid' => $this->form->deposit_paid,
+                'deposit_refunded' => $this->form->deposit_refunded,
+                'payment_method' => $this->form->payment_method,
+                'deposit_amount' => $this->form->deposit_amount,
+            ]);
+        }
+
         $this->showPersonModal = false;
 
         $this->swalToast("De persoon <b><i>{$this->form->preferred_name}</i></b> is bijgewerkt!", 'success', [
@@ -173,7 +188,7 @@ class Persons extends Component
 
     public function showSelectedPerson(User $person): void
     {
-        $this->selectedPerson = $person;
+        $this->selectedPerson = $person->load('payment');
 
         // Load the user's keys
         $this->userKeys = UserKey::where('user_id', $person->id)
@@ -294,7 +309,7 @@ class Persons extends Component
         'description' => 'Hier kan de beheerder de gebruikers beheren'])]
     public function render()
     {
-        $persons = User::orderBy('last_name')
+        $persons = User::with('payment')->orderBy('last_name')
             ->orderBy('first_name')
             ->with('institutions')
             ->searchFirstNameOrLastName($this->search)

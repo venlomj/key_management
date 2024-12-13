@@ -1,4 +1,4 @@
-<nav class="shadow bg-white/70 sticky top-0 backdrop-blur-sm z-10 mb-4 flex justify-center items-center p-4">
+<nav class="shadow bg-white/70 sticky top-0 backdrop-blur-sm z-10 mb-4 flex justify-end items-center p-4">
     <div class="flex items-center space-x-4">
         <x-nav-link href="{{ route('admin.persons') }}">
             Personen

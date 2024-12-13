@@ -21,6 +21,7 @@ class PersonForm extends Form
     public $employee_code = null;
     #[Validate('required', as: 'De school')]
     public $institutions = [];
+    public $payment;
     #[Validate('required', as: 'De roepnaam')]
     public $preferred_name = null;
     #[Validate('required', as: 'Het e-mailadres')]
@@ -60,13 +61,17 @@ class PersonForm extends Form
 
 
         // Create the associated Payment
-        Payment::create([
-            'user_id' => $person->id,
-            'deposit_amount' => $this->deposit_amount,
-            'deposit_paid' => $this->deposit_paid,
-            'deposit_refunded' => $this->deposit_refunded,
-            'payment_method' => $this->payment_method,
-        ]);
+        if (!empty($this->payment)) {
+            Payment::create([
+                'user_id' => $person->id,
+                'deposit_amount' => $this->deposit_amount,
+                'deposit_paid' => $this->deposit_paid,
+                'deposit_refunded' => $this->deposit_refunded,
+                'payment_method' => $this->payment_method,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
 
     }
 
@@ -85,19 +90,26 @@ class PersonForm extends Form
             'email' => $this->email,
         ]);
 
-        //$person->institutions = $this->institutions;
-
-        // Update the Payment (if it exists)
+        // Update the Payment (if it exists), otherwise create a new one
         if ($person->payment) {
+            // Update existing payment
             $person->payment->update([
                 'deposit_paid' => $this->deposit_paid,
                 'deposit_refunded' => $this->deposit_refunded,
                 'payment_method' => $this->payment_method,
                 'deposit_amount' => $this->deposit_amount,
             ]);
+        } else {
+            // Create a new payment if it doesn't exist
+            $person->payment()->create([
+                'deposit_paid' => $this->deposit_paid,
+                'deposit_refunded' => $this->deposit_refunded,
+                'payment_method' => $this->payment_method,
+                'deposit_amount' => $this->deposit_amount,
+            ]);
         }
-
     }
+
 
     public function rules()
     {
