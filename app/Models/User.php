@@ -79,6 +79,10 @@ class User extends Authenticatable
         ];
     }
 
+    public function hadPaidDeposit(): bool
+    {
+        return $this->payment && $this->payment->deposit_paid;
+    }
     public function keys(): BelongsToMany
     {
         return $this->belongsToMany(Key::class, 'user_keys')->withPivot('remark', 'quantity', 'loaned_at', 'returned_at');

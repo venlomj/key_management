@@ -34,6 +34,7 @@
                     <th scope="col" class="px-4 py-2 md:px-6 md:py-3">Voornaam</th>
                     <th scope="col" class="px-4 py-2 md:px-6 md:py-3">Achternaam</th>
                     <th scope="col" class="px-4 py-2 md:px-6 md:py-3">School</th>
+                    <th scope="col" class="px-4 py-2 md:px-6 md:py-3">Waarborg betaald</th>
                     <th scope="col" class="px-4 py-2 md:px-6 md:py-3"><span class="sr-only">Bewerken</span></th>
                 </tr>
                 </thead>
@@ -56,9 +57,7 @@
                                 Geen school beschikbaar
                             @endif
                         </td>
-
-
-
+                        <td class="px-4 py-2 md:px-6 md:py-4">{{ $person->hadPaidDeposit() ? 'Ja' : 'Nee' }}</td>
                         <td class="px-4 py-2 text-right md:px-6 md:py-4">
                             <div class="flex gap-1 justify-center items-center [&>*]:cursor-pointer [&>*]:outline-0 [&>*]:transition">
                                 <x-phosphor-key
@@ -344,9 +343,9 @@
 
             <div class="mt-4">
                 <!-- Modal Content - Table -->
-                <div class="sm:rounded-lg max-h-[20vh] overflow-hidden"> <!-- Adjusted table's max height -->
+                <div class="sm:rounded-lg max-h-[20vh] overflow-hidden">
                     <!-- Add a wrapper div with fixed height and overflow-auto for scrolling -->
-                    <div class="overflow-auto max-h-[20vh]"> <!-- Adjust max-h-96 for your desired height -->
+                    <div class="overflow-auto max-h-[20vh]">
                         <table class="min-w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead class="text-xs text-gray-700 uppercase bg-secondary sticky top-0 z-10">
                             <tr>
@@ -369,9 +368,9 @@
                                     <td class="px-4 py-2 md:px-6 md:py-4">{{ $key->key->type ?? 'Geen sleutel type beschikbaar' }}</td>
                                     <td class="px-4 py-2 md:px-6 md:py-4">{{ $key->remark ?? 'Geen opmerking' }}</td>
                                     <td class="px-4 py-2 text-right md:px-6 md:py-4">
-                                        <button class="w-5 text-red-50 hover:text-red-500"
+                                        <button class="w-5 hover:text-red-500"
                                                 wire:click="removeKeyFromUser({{ $key->id }})">
-                                            D
+                                            <x-phosphor-trash-duotone />
                                         </button>
 
                                     </td>

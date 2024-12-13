@@ -1,169 +1,173 @@
-<nav aria-label="Sidebar Navigation" class="peer-checked:w-64 left-0 z-10 flex h-screen w-0 flex-col overflow-hidden bg-sidebar-dark text-white transition-all md:h-screen md:w-64 lg:w-72">
-{{--    <div class="mt-4 py-3 pl-10 md:mt-10 bg-white">--}}
-{{--        --}}{{--        <span class="mr-1 inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 align-bottom text-2xl font-bold">U</span>--}}
-{{--        <img src="{{ asset('/assets/logos/KogekaLogo_landscape_colour_cmyk 12.jpg') }}" alt="Logo" class="w-auto h-20 bg-primary">--}}
-{{--    </div>--}}
-    {{--    <ul class="mt-8 space-y-3 md:mt-20">--}}
+<nav aria-label="Sidebar Navigation" class="peer-checked:left-0 z-10 flex h-screen flex-col overflow-hidden bg-sidebar-dark text-white transition-all" x-data="{ open: true, collapsed: false }" :class="{ 'w-18': collapsed, 'w-60': !collapsed }">
     <ul class="flex flex-col h-full mt-8 space-y-3 md:mt-20">
+        <!-- Burger Icon Button to toggle sidebar collapse -->
+        <button @click="collapsed = !collapsed" class="absolute top-4 right-4 flex justify-end items-center space-x-2">
+            <x-solar-hamburger-menu-outline class="w-5 h-5" />
+        </button>
+
+        <!-- Dashboard Link -->
         <li class="relative">
-            <a href="/" class="focus:bg-slate-600 hover:bg-slate-600 flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
+            <a href="/" class="focus:bg-sidebar-dark-extra-light hover:bg-sidebar-dark-extra-light flex items-center w-full space-x-2 rounded-md px-10 py-2 text-gray-300 focus:outline-none">
                 {{ svg('ri-dashboard-horizontal-fill', 'w-5 h-5 mr-2') }}
-                <span>Dasboard</span>
+                <span x-show="!collapsed">Dashboard</span>
             </a>
         </li>
-{{--        <li class="relative">--}}
-{{--            <a href="#" class="flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">--}}
-{{--                <i class=''></i>--}}
-{{--                <span class="link_name">Dashboard</span>--}}
-{{--            </a>--}}
-{{--        </li>--}}
-{{--        <li class="relative" x-data="{ openUserManagement: false }">--}}
-{{--            <a href="#"--}}
-{{--               class="flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none"--}}
-{{--               @click="openUserManagement = !openUserManagement">--}}
-{{--                <i class=''></i>--}}
-{{--                <span class="link_name">Gebruikersbeheer</span>--}}
-{{--            </a>--}}
-{{--            <ul class="sub-menu bg-footer-background relative space-x-2 left-0 w-full px-10"--}}
-{{--                x-show="openUserManagement"--}}
-{{--                x-transition:enter="transition ease-out duration-200"--}}
-{{--                x-transition:enter-start="opacity-0 scale-95"--}}
-{{--                x-transition:enter-end="opacity-100 scale-100"--}}
-{{--                x-transition:leave="transition ease-in duration-150"--}}
-{{--                x-transition:leave-start="opacity-100 scale-100"--}}
-{{--                x-transition:leave-end="opacity-0 scale-95"--}}
-{{--                x-cloak>--}}
-{{--                <li><a href="#">Overzicht</a></li>--}}
-{{--                <li><a href="#">Lijsten</a></li>--}}
-{{--            </ul>--}}
-{{--        </li>--}}
+
+        <!-- User Management Section -->
         <li class="relative" x-data="{ openUserManagement: false }">
             <button
                 @click="openUserManagement = !openUserManagement"
                 type="button"
-                class="focus:bg-slate-600 hover:bg-sidebar-dark-light flex items-center w-full space-x-2 rounded-md px-10 py-2 text-gray-300 focus:outline-none"
-                >
-                <span x-show="open" class="">
-                    Gebruikersbeheer</span>
+                class="focus:bg-sidebar-dark-extra-light hover:bg-gray-700 hover:shadow-md flex items-center w-full space-x-2 rounded-md px-10 py-2 text-gray-300 focus:outline-none transition-all duration-200 ease-in-out"
+            >
+                <span><x-heroicon-o-user-group class="w-5 h-5" /></span>
+                <!-- Text only visible when sidebar is expanded -->
+                <span x-show="!collapsed" class="ml-2">Gebruikersbeheer</span>
+
+                <!-- Chevrons for expanded/collapsed state -->
                 <template x-if="!openUserManagement">
-                    <x-heroicon-o-chevron-down class="w-5 h-5 flex-shrink-0 transition-transform duration-200" />
+                    <x-heroicon-o-chevron-down x-show="!collapsed" class="w-5 h-5 flex-shrink-0 transition-transform duration-200" />
                 </template>
                 <template x-if="openUserManagement">
-                    <x-heroicon-o-chevron-up class="w-5 h-5 flex-shrink-0 transition-transform duration-200" />
+                    <x-heroicon-o-chevron-up x-show="!collapsed" class="w-5 h-5 flex-shrink-0 transition-transform duration-200" />
                 </template>
             </button>
-            <ul class="py-2 space-y-2" x-show="openUserManagement" x-transition  :class="openUserManagement ? 'bg-sidebar-dark-light' : 'bg-primary'">
+
+            <!-- Dropdown menu -->
+            <ul
+                class="py-2 space-y-2"
+                x-show="openUserManagement"
+                x-transition
+                :class="openUserManagement ? 'bg-sidebar-dark-extra-light' : 'bg-primary'"
+            >
                 <li class="relative">
-                    <a href="/" class="focus:bg-slate-600 hover:bg-primary flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
+                    <a
+                        href="/"
+                        class="focus:bg-sidebar-dark-extra-light hover:bg-sidebar-dark-light flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none"
+                    >
                         <x-phosphor-tree-view-duotone class="w-5 h-5 mr-2" />
-                        Overzicht</a>
+                        <span x-show="!collapsed">Overzicht</span>
+                    </a>
                 </li>
                 <li class="relative">
-                    <a href="/" class="focus:bg-slate-600 hover:bg-primary flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
+                    <a
+                        href="/"
+                        class="focus:bg-sidebar-dark-extra-light hover:bg-sidebar-dark-light flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none"
+                    >
                         <x-phosphor-list-bullets-duotone class="w-5 h-5 mr-2" />
-                        Lijsten</a>
+                        <span x-show="!collapsed">Lijsten</span>
+                    </a>
                 </li>
             </ul>
         </li>
-            <li class="relative" x-data="{ openLaptoptool: false }">
-            <button
-                @click="openLaptoptool = !openLaptoptool"
-                type="button"
-                class="focus:bg-slate-600 hover:bg-sidebar-dark-light flex items-center w-full space-x-2 rounded-md px-10 py-2 text-gray-300 focus:outline-none">
-                <span x-show="open" class="">Laptoptool</span>
+
+        <!-- Laptop Tool Section -->
+        <li class="relative" x-data="{ openLaptoptool: false }">
+            <!-- Button -->
+            <button @click="openLaptoptool = !openLaptoptool" type="button"
+                    class="focus:bg-sidebar-dark-extra-light hover:bg-gray-700 hover:shadow-md flex items-center w-full space-x-2 rounded-md px-10 py-2 text-gray-300 focus:outline-none transition-all duration-200 ease-in-out">
+                <x-phosphor-laptop-duotone class="w-5 h-5" />
+                <span x-show="!collapsed">Laptoptool</span>
                 <template x-if="!openLaptoptool">
-                    <x-heroicon-o-chevron-down class="w-5 h-5 flex-shrink-0 transition-transform duration-200" />
+                    <x-heroicon-o-chevron-down x-show="!collapsed"
+                                               class="w-5 h-5 flex-shrink-0 transition-transform duration-200 ease-out" />
                 </template>
                 <template x-if="openLaptoptool">
-                    <x-heroicon-o-chevron-up class="w-5 h-5 flex-shrink-0 transition-transform duration-200" />
+                    <x-heroicon-o-chevron-up x-show="!collapsed"
+                                             class="w-5 h-5 flex-shrink-0 transition-transform duration-200 ease-in" />
                 </template>
             </button>
-            <ul class="py-2 space-y-2" x-show="openLaptoptool" x-transition  :class="openLaptoptool ? 'bg-sidebar-dark-light' : 'bg-primary'">
+
+            <!-- Dropdown -->
+            <ul class="py-2 space-y-0 overflow-hidden"
+                x-show="openLaptoptool"
+                x-transition:enter="transition ease-out duration-300 transform"
+                x-transition:enter-start="opacity-0 -translate-y-2 scale-95"
+                x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                x-transition:leave="transition ease-in duration-200 transform"
+                x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
+                :class="openLaptoptool ? 'bg-sidebar-dark-extra-light' : 'bg-primary'">
+
+                <!-- Dropdown Links -->
                 <li class="relative">
-                    <a href="/" class="focus:bg-slate-600 hover:bg-primary flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
+                    <a href="/"
+                       class="focus:bg-sidebar-dark-extra-light hover:bg-sidebar-dark-light hover:shadow-md flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 transition-all duration-200 ease-in-out">
                         <x-phosphor-laptop-duotone class="w-5 h-5 mr-2" />
-                        Toestellen</a>
+                        <span x-show="!collapsed">Toestellen</span>
+                    </a>
                 </li>
                 <li class="relative">
-                    <a href="/" class="focus:bg-slate-600 hover:bg-primary flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
+                    <a href="/"
+                       class="focus:bg-sidebar-dark-extra-light hover:bg-sidebar-dark-light hover:shadow-md flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 transition-all duration-200 ease-in-out">
                         <x-phosphor-trademark-registered-duotone class="w-5 h-5 mr-2" />
-                        Registraties</a>
+                        <span x-show="!collapsed">Registraties</span>
+                    </a>
                 </li>
                 <li class="relative">
-                    <a href="/" class="focus:bg-slate-600 hover:bg-primary flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
+                    <a href="/"
+                       class="focus:bg-sidebar-dark-extra-light hover:bg-sidebar-dark-light hover:shadow-md flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 transition-all duration-200 ease-in-out">
                         <x-phosphor-list-bullets-duotone class="w-5 h-5 mr-2" />
-                        Lijsten</a>
+                        <span x-show="!collapsed">Lijsten</span>
+                    </a>
                 </li>
             </ul>
         </li>
-            <li class="relative">
-                <a href="/" class="focus:bg-slate-600 hover:bg-slate-600 flex items-center w-full space-x-2 rounded-md px-10 py-2 text-gray-300 focus:outline-none">
-                    <i class="fas fa-users mr-2" :class="{'mr-2': open, 'mx-auto': !open, 'text-sm': !open}"></i>
-                    <span x-show="open">Personen</span>
-                </a>
-            </li>
-            <li class="relative">
-                <a href="/" class="focus:bg-slate-600 hover:bg-slate-600 flex items-center w-full space-x-2 rounded-md px-10 py-2 text-gray-300 focus:outline-none">
-                    <i class="fas fa-lock mr-2" :class="{'mr-2': open, 'mx-auto': !open, 'text-sm': !open}"></i>
-                    <span x-show="open">Sleutels</span>
-                </a>
-            </li>
-            <li class="relative !mb-9">
-                <a href="/" class="focus:bg-slate-600 hover:bg-slate-600 flex items-center w-full space-x-2 rounded-md px-10 py-2 text-gray-300 focus:outline-none">
-                    <i class="fas fa-lock mr-2" :class="{'mr-2': open, 'mx-auto': !open, 'text-sm': !open}"></i>
-                    <span x-show="open">Lokalen</span>
-                </a>
-            </li>
-            <li class="relative !mt-14" x-data="{ openProfile: false }">
-                <button
-                    @click="openProfile = !openProfile"
-                    type="button"
-                    class="focus:bg-slate-600 hover:bg-slate-600 flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none"
-                    aria-controls="dropdown-example"
-                    data-collapse-toggle="dropdown-example">
-                    <span x-show="open">Gebruikersbeheer</span>
-                    <!-- Icon for toggling -->
-                    <svg sidebar-toggle-item class="w-6 h-6"
-                         fill="currentColor"
-                         viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                              clip-rule="evenodd"></path>
-                    </svg>
-                </button>
-                <ul class="py-2 space-y-2" x-show="openProfile" x-transition  :class="openProfile ? 'bg-secondary' : 'bg-primary'">
-                    <li class="relative">
-                        <a href="/" class="focus:bg-slate-600 hover:bg-primary flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
-                            {{ svg('ri-dashboard-horizontal-fill', 'w-5 h-5 mr-2') }}
-                            Dashboard</a>
-                    </li>
-                    <li class="relative">
-                        <a href="{{ route('profile.show') }}" class="focus:bg-slate-600 hover:bg-primary flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
-                            {{ svg('iconsax-bul-profile-tick', 'w-5 h-5 mr-2') }}
-                            Profiel bijwerken</a>
-                    </li>
-                    <li class="relative"><form method="POST" action="/">
-                            @csrf
-                            <a href="/" class="focus:bg-slate-600  hover:bg-primary flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
-                                {{ svg('ri-logout-circle-r-line', 'w-5 h-5 mr-2') }}
-                                Afmelden</a>
-                        </form>
-                    </li>
-                </ul>
-            </li>
 
 
+        <!-- Sollicitanten Link -->
+        <li class="relative">
+            <a href="/" class="focus:bg-sidebar-dark-extra-light hover:bg-sidebar-dark-extra-light flex items-center w-full space-x-2 rounded-md px-10 py-2 text-gray-300 focus:outline-none">
+                <x-heroicon-o-document-text class="w-5 h-5" />
+                <span x-show="!collapsed">Sollicitanten</span>
+            </a>
+        </li>
 
-            <!-- Conditionally render the login and logout buttons -->
-            {{--        @guest--}}
-            {{--            <li class="mt-auto">--}}
-            {{--                <a href="{{ route('login') }}" class="focus:bg-slate-600 hover:bg-slate-600 flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">--}}
-            {{--                    <i class="fas fa-sign-in-alt mr-2" :class="{'mr-2': open, 'mx-auto': !open, 'text-sm': !open}"></i>--}}
-            {{--                    <span x-show="open">Aanmelden</span>--}}
-            {{--                </a>--}}
-            {{--            </li>--}}
-            {{--        @endguest--}}
-            {{--        end part two--}}
+        <!-- Plusuren Section -->
+        <li class="relative" x-data="{ openAdditionalHours: false }">
+            <button @click="openAdditionalHours = !openAdditionalHours" type="button" class="focus:bg-sidebar-dark-extra-light hover:bg-sidebar-dark-extra-light flex items-center w-full space-x-2 rounded-md px-10 py-2 text-gray-300 focus:outline-none">
+                <x-phosphor-clock class="w-5 h-5" />
+                <span x-show="!collapsed">Plusuren</span>
+                <template x-if="!openAdditionalHours">
+                    <x-heroicon-o-chevron-down x-show="!collapsed" class="w-5 h-5 flex-shrink-0 transition-transform duration-200" />
+                </template>
+                <template x-if="openAdditionalHours">
+                    <x-heroicon-o-chevron-up x-show="!collapsed" class="w-5 h-5 flex-shrink-0 transition-transform duration-200" />
+                </template>
+            </button>
+            <ul class="py-2 space-y-2" x-show="openAdditionalHours" x-transition :class="openAdditionalHours ? 'bg-sidebar-dark-extra-light' : 'bg-primary'">
+                <li class="relative">
+                    <a href="/" class="focus:bg-sidebar-dark-extra-light hover:bg-sidebar-dark-light flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
+                        <x-phosphor-pencil class="w-5 h-5 mr-2" />
+                        <span x-show="!collapsed">Registratie</span>
+                    </a>
+                </li>
+                <li class="relative">
+                    <a href="/" class="focus:bg-sidebar-dark-extra-light hover:bg-sidebar-dark-light flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
+                        <x-heroicon-o-cog class="w-5 h-5 mr-2" />
+                        <span x-show="!collapsed">Beheer</span>
+                    </a>
+                </li>
+                <li class="relative">
+                    <a href="/" class="focus:bg-sidebar-dark-extra-light hover:bg-sidebar-dark-light flex items-center w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
+                        <x-phosphor-layout class="w-5 h-5 mr-2" />
+                        <span x-show="!collapsed">Overzicht</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
     </ul>
+    <!-- Profile Section (at the bottom) -->
+    <div class="flex-shrink-0 flex flex-col items-center justify-end pb-4">
+        <!-- Expanded Sidebar -->
+        <div x-show="!collapsed" class="text-gray-300 text-sm">
+            Murrel Venlo
+        </div>
 
+        <!-- Collapsed Sidebar (Avatar) -->
+        <img x-show="collapsed"
+             :src="'https://ui-avatars.com/api/?name=' + encodeURIComponent('Murrel Venlo')"
+             alt="Murrel Venlo"
+             class="w-8 h-8 rounded-full" />
+    </div>
 </nav>
