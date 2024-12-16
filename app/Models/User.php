@@ -83,6 +83,22 @@ class User extends Authenticatable
     {
         return $this->payment && $this->payment->deposit_paid;
     }
+
+    public function scopeWithNoDeposit($query)
+    {
+        return $query->whereHas('payment', function ($q) {
+            $q->where('deposit_paid', false);
+        });
+    }
+
+//    public function scopeWithoutDeposit($query)
+//    {
+//        return $query->where(function ($q) {
+//            $q->whereHas('payment', function ($q) {
+//                $q->where('deposit_paid', false);
+//            })->oreWhereDoesntHave('payment');
+//        });
+//    }
     public function keys(): BelongsToMany
     {
         return $this->belongsToMany(Key::class, 'user_keys')->withPivot('remark', 'quantity', 'loaned_at', 'returned_at');

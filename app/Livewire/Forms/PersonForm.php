@@ -68,6 +68,8 @@ class PersonForm extends Form
                 'deposit_paid' => $this->deposit_paid,
                 'deposit_refunded' => $this->deposit_refunded,
                 'payment_method' => $this->payment_method,
+                'deposit_paid_at' => $this->deposit_paid ? now() : null,
+                'deposit_refunded_at' => $this->deposit_refunded ? now() : null,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -98,6 +100,8 @@ class PersonForm extends Form
                 'deposit_refunded' => $this->deposit_refunded,
                 'payment_method' => $this->payment_method,
                 'deposit_amount' => $this->deposit_amount,
+                'deposit_paid_at' => $this->deposit_paid ? now() : $person->payment->deposit_paid_at,
+                'deposit_refunded_at' => $this->deposit_refunded ? now() : $person->payment->deposit_refunded_at,
             ]);
         } else {
             // Create a new payment if it doesn't exist
@@ -106,6 +110,8 @@ class PersonForm extends Form
                 'deposit_refunded' => $this->deposit_refunded,
                 'payment_method' => $this->payment_method,
                 'deposit_amount' => $this->deposit_amount,
+                'deposit_paid_at' => $this->deposit_paid ? now() : null,
+                'deposit_refunded_at' => $this->deposit_refunded ? now() : null,
             ]);
         }
     }
