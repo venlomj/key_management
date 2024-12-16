@@ -96,10 +96,11 @@
                         </td>
                         <td class="px-4 py-2 text-right sm:px-2 md:px-6 md:py-4">
                             <button
-                                class="w-6 h-6 text-blue-400 hover:text-blue-500"
+                                class="w-6 h-6"
                                 wire:click="newKey({{ $classroom->id }})"
+                                data-tippy-content="Klik om lokaal bij te werken"
                             >
-                                {{ svg('eos-content-modified', 'mr-2 text-green-500 cursor-pointer w-5 h-5') }}
+                                {{ svg('eos-content-modified', 'mr-2 hover:text-green-500 cursor-pointer w-5 h-5') }}
                             </button>
                         </td>
                     </tr>

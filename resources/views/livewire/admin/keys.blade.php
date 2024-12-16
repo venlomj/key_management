@@ -43,8 +43,9 @@
                             {{ $key->type ?? 'Geen sleutel type beschikbaar' }}
                         </td>
                         <td class="px-4 py-2 text-right sm:px-2 md:px-6 md:py-4">
-                            <button class="text-gray-400 hover:text-green-400 transition" wire:click="editKey({{ $key->id }})">
-                                <x-phosphor-pencil-line-duotone class="inline-block size-5" />
+                            <button class="text-gray-400 hover:text-green-400 transition" wire:click="editKey({{ $key->id }})"
+                                    data-tippy-content="Klik om een sleutel bij te werken">
+                                {{ svg('eos-content-modified', 'mr-2 hover:text-green-500 cursor-pointer w-5 h-5') }}
                             </button>
                         </td>
                     </tr>

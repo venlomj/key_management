@@ -15,13 +15,14 @@
                                   class="placeholder-gray-300"/>
         </div>
         <x-kogeka.form.button color="info" class="mt-1"
-                              wire:click="newPerson()">
+                              wire:click="newPerson()"
+                              data-tippy-content="Klik om een persoon toe te voegen">
             {{ svg('tabler-user-plus') }}
         </x-kogeka.form.button>
         <x-kogeka.form.switch id="waarborg"
                               wire:model="noDeposit"
                               text-off="Waarborg betaald" color-off="text-gray-400 font-light bg-gray-100 before:line-through"
-                              text-on="Geen waarborg betaald" color-on="text-white bg-rose-600"
+                              text-on="Geen waarborg betaald" color-on="text-white bg-rose-600 h-auto"
                               class="w-20 mt-1"/>
     </x-kogeka.section>
 
@@ -64,22 +65,26 @@
                                 <x-phosphor-key
                                     class="w-5 text-gray-400 border-gray-300 hover:text-gold"
                                     wire:click="showSelectedPerson({{ $person->id }})"
+                                    data-tippy-content="Klik om de geleende sluetels te zien"
                                 />
                                 <button
                                     class="w-6 h-6 text-blue-400 hover:text-blue-500"
                                     wire:click="showKey({{ $person->id }})"
+                                    data-tippy-content="Klik om sleutels aan de persoon te lenen"
                                 >
                                     {{ svg('solar-key-minimalistic-square-2-bold-duotone') }}
                                 </button>
                                 <button
                                     class="w-6 h-6 text-green-400 hover:text-green-500"
                                     wire:click="editPerson({{ $person->id }})"
+                                    data-tippy-content="Klik om een persoon te bewerken"
                                 >
                                     {{ svg('iconsax-bul-user-edit') }}
                                 </button>
                                 <button
                                     class="w-6 h-6 text-red-400 hover:text-red-500"
-                                    wire:click="deletePerson({{ $person->id }})">
+                                    wire:click="deletePerson({{ $person->id }})"
+                                    data-tippy-content="Klik om een persoon te verwijderen">
                                     {{ svg('iconsax-bul-user-remove') }}
                                 </button>
                             </div>
