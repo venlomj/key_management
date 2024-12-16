@@ -22,6 +22,7 @@ class Persons extends Component
     public $search;
 
     public $filter;
+    public $noDeposit = false;
 
     public $users;
 
@@ -59,7 +60,13 @@ class Persons extends Component
     public $userKeyToDelete = null;
 
     public $allInstitutions;
-    //public $payment;
+
+    public $deposit_paid = false;
+    public $deposit_refunded = false;
+    public $payment_method;
+    public $deposit_amount;
+    public $deposit_paid_at;
+    public $deposit_refunded_at;
 
     public function mount(): void
     {
@@ -104,8 +111,8 @@ class Persons extends Component
         // Pre-fill payment data if payment exists
         if ($person->payment) {
             // dump($person->payment);
-            $this->form->deposit_paid = $person->payment->deposit_paid;
-            $this->form->deposit_refunded = $person->payment->deposit_refunded;
+            $this->form->deposit_paid = (bool)$person->payment->deposit_paid;
+            $this->form->deposit_refunded = (bool)$person->payment->deposit_refunded;
             $this->form->payment_method = $person->payment->payment_method;
             $this->form->deposit_amount = $person->payment->deposit_amount;
         }
@@ -133,11 +140,20 @@ class Persons extends Component
                 'payment_method' => $this->form->payment_method,
                 'deposit_amount' => $this->form->deposit_amount,
             ]);
+
+            // Only update the timestamp if the corresponding flag changes
+            if ($this->form->deposit_paid && !$person->payment->deposit_paid) {
+                $person->payment->update(['deposit_paid_at' => now()]);  // This will update the timestamp correctly
+            }
+
+            if ($this->form->deposit_refunded && !$person->payment->deposit_refunded) {
+                $person->payment->update(['deposit_refunded_at' => now()]);  // This will update the timestamp correctly
+            }
         }
 
         $this->showPersonModal = false;
 
-        $this->swalToast("De persoon <b><i>{$this->form->preferred_name}</i></b> is bijgewerkt!", 'success', [
+        $this->swalToast("De persoon <b><i>{$this->form->first_name}</i></b> is bijgewerkt!", 'success', [
             'icon' => 'success',
         ]);
     }
@@ -188,15 +204,34 @@ class Persons extends Component
 
     public function showSelectedPerson(User $person): void
     {
+        // Load the payment data for the selected person
         $this->selectedPerson = $person->load('payment');
+
+        // Retrieve the deposit_paid and deposit_refunded flags
+        $this->deposit_paid = $person->payment && (bool)$person->payment->deposit_paid;
+        $this->deposit_refunded = $person->payment && (bool)$person->payment->deposit_refunded;
+
+        // Retrieve the timestamps for when the deposit was paid or refunded
+        $this->deposit_paid_at = $person->payment && $person->payment->deposit_paid_at
+            ? \Carbon\Carbon::parse($person->payment->deposit_paid_at)->format('Y-m-d H:i:s')
+            : null;
+
+        $this->deposit_refunded_at = $person->payment && $person->payment->deposit_refunded_at
+            ? \Carbon\Carbon::parse($person->payment->deposit_refunded_at)->format('Y-m-d H:i:s') // Format it if needed
+            : null;
 
         // Load the user's keys
         $this->userKeys = UserKey::where('user_id', $person->id)
             ->with('key')
             ->get();
 
+        // Display the modal
         $this->showModal = true;
     }
+
+
+
+
 
     public function removeKeyFromUser(int $userKeyId): void
     {
@@ -299,7 +334,7 @@ class Persons extends Component
     {
         // $property: The name of the current property being updated
         // $value: The value about to be set to the property
-        if (in_array($property, ['search', 'perPage', 'showModal'])) {
+        if (in_array($property, ['search', 'perPage', 'showModal', 'noDeposit'])) {
             $this->resetPage();
         }
     }
@@ -309,12 +344,26 @@ class Persons extends Component
         'description' => 'Hier kan de beheerder de gebruikers beheren'])]
     public function render()
     {
-        $persons = User::with('payment')->orderBy('last_name')
+        $query = User::with('payment')->orderBy('last_name')
             ->orderBy('first_name')
             ->with('institutions')
-            ->searchFirstNameOrLastName($this->search)
-            ->paginate($this->perPage);
+            ->searchFirstNameOrLastName($this->search);
 
+//        if ($this->noDeposit) {
+//            $query->whereHas('payment', function ($q) {
+//                $q->where('deposit_paid', false);
+//            });
+//        }
+
+        if ($this->noDeposit) {
+            // When $noDeposit is true, only show users who have paid the deposit
+            $query->whereHas('payment', function ($q) {
+                $q->where('deposit_paid', false);  // Only those who have paid the deposit
+            });
+        }
+
+
+        $persons = $query->paginate($this->perPage);
 
         return view('livewire.admin.persons', [
             'persons' => $persons,

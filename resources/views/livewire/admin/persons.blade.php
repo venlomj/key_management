@@ -19,6 +19,7 @@
             {{ svg('tabler-user-plus') }}
         </x-kogeka.form.button>
         <x-kogeka.form.switch id="waarborg"
+                              wire:model="noDeposit"
                               text-off="Waarborg betaald" color-off="text-gray-400 font-light bg-gray-100 before:line-through"
                               text-on="Geen waarborg betaald" color-on="text-white bg-rose-600"
                               class="w-20 mt-1"/>
@@ -180,12 +181,13 @@
 
 
                 {{-- Payment Section --}}
+                {{-- Payment Section --}}
                 <div class="mt-6 sm:col-span-2">
                     <x-label class="block text-sm font-medium text-gray-700">Betalingsinformatie</x-label>
 
-                    <div class="flex flex-wrap gap-4 mt-4 items-center">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                         <!-- Deposit Paid Checkbox -->
-                        <div class="flex items-center space-x-2 w-full sm:w-auto">
+                        <div class="flex items-center space-x-2">
                             <x-input
                                 type="checkbox"
                                 id="deposit_paid"
@@ -198,7 +200,7 @@
                         </div>
 
                         <!-- Deposit Refunded Checkbox -->
-                        <div class="flex items-center space-x-2 w-full sm:w-auto">
+                        <div class="flex items-center space-x-2">
                             <x-input
                                 type="checkbox"
                                 id="deposit_refunded"
@@ -211,17 +213,26 @@
                         </div>
 
                         <!-- Deposit Amount Input -->
-                        <div class="flex flex-col w-full sm:w-auto">
+                        <div class="flex flex-col">
                             <x-label for="deposit_amount" value="Bedrag (€)" />
-                            <x-input id="deposit_amount" type="text" wire:model.defer="form.deposit_amount"
-                                     step="0.01"
-                                     placeholder="Bedrag"
-                                     class="w-full sm:w-48 mt-1" />
+                            <x-input
+                                id="deposit_amount"
+                                type="text"
+                                wire:model.defer="form.deposit_amount"
+                                step="0.01"
+                                placeholder="Bedrag"
+                                class="w-full sm:w-48 mt-1"
+                            />
                         </div>
 
                         <!-- Payment Method Dropdown -->
-                        <div class="flex flex-col w-full sm:w-auto">
-                            <x-kogeka.form.select name="payment_method" wire:model="form.payment_method" class="block mt-1 w-full sm:w-50">
+                        <div class="flex flex-col">
+                            <x-label for="payment_method" value="Betaalmethode" />
+                            <x-kogeka.form.select
+                                id="payment_method"
+                                wire:model="form.payment_method"
+                                class="block mt-1 w-full sm:w-48"
+                            >
                                 <option value="">Kies een betaalmethode</option>
                                 @foreach(PaymentMethod::toArray() as $paymentMethod => $paymentName)
                                     <option value="{{ $paymentMethod }}">{{ $paymentName }}</option>
@@ -230,6 +241,7 @@
                         </div>
                     </div>
                 </div>
+
 
 
 
@@ -286,7 +298,7 @@
     </x-dialog-modal>
 
     {{-- Modal for person with key --}}
-    <x-dialog-modal id="userKeyModal" wire:model.live="showModal" maxWidth="5xl" class="h-[40vh]">  <!-- Set height of modal -->
+    <x-dialog-modal id="userKeyModal" wire:model.live="showModal" maxWidth="5xl" class="h-[40vh]" >  <!-- Set height of modal -->
         <x-slot name="title">
             <h2 class="text-tertiary-500">Geleende sleutels van {{ $selectedPerson->preferred_name ?? '' }}</h2>
         </x-slot>
@@ -324,20 +336,48 @@
                             <dd class="text-gray-900">{{ $selectedPerson->employee_id ?? '' }}</dd>
                         </div>
                     </div>
-                    <div class="flex space-x-4 p-4 rounded-lg">
-                        <div class="flex items-center">
-                            <x-input type="checkbox" id="checkbox1" class="mr-2"/>
-                            <x-label for="checkbox1" class="text-gray-700">Waarborg betaald</x-label>
+                    <div class="grid grid-cols-2 gap-6 p-4 rounded-lg">
+                        <!-- Deposit Paid Section -->
+                        <div>
+                            <div class="flex flex-col space-y-2">
+                                <div class="flex items-center space-x-2">
+                                    <dt class="font-semibold text-gray-700">Waarborg betaald</dt>
+                                    @if($deposit_paid)
+                                        <x-phosphor-check-fat-duotone class="text-green-500 w-5 h-5" />
+                                    @else
+                                        <span class="text-gray-500 italic">Nog niet betaald</span>
+                                    @endif
+                                </div>
+                                <div>
+                                    <dt class="font-semibold text-gray-700">Waarborg betaald op</dt>
+                                    <dd class="text-gray-900 italic">
+                                        {{ $deposit_paid_at ? \Carbon\Carbon::parse($deposit_paid_at)->format('d-m-Y H:i:s') : 'Onbekend' }}
+                                    </dd>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-center">
-                            <x-input type="checkbox" id="checkbox2" class="mr-2"/>
-                            <x-label for="checkbox2" class="text-gray-700">Waarborg terugbetaald</x-label>
-                        </div>
-                        <div class="flex items-center">
-                            <dt class="font-semibold text-gray-700 mr-2">Terugbetaald op</dt>
-                            <dd class="text-gray-900">7/11/2024</dd>
+
+                        <!-- Deposit Refunded Section -->
+                        <div>
+                            <div class="flex flex-col space-y-2">
+                                <div class="flex items-center space-x-2">
+                                    <dt class="font-semibold text-gray-700">Waarborg terugbetaald</dt>
+                                    @if($deposit_refunded)
+                                        <x-phosphor-check-fat-duotone class="text-red-500 w-5 h-5" />
+                                    @else
+                                        <span class="text-gray-500 italic">Nog niet terugbetaald</span>
+                                    @endif
+                                </div>
+                                <div>
+                                    <dt class="font-semibold text-gray-700">Waarborg terugbetaald op</dt>
+                                    <dd class="text-gray-900 italic">
+                                        {{ $deposit_refunded_at ? \Carbon\Carbon::parse($deposit_refunded_at)->format('d-m-Y H:i:s') : 'Onbekend' }}
+                                    </dd>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </x-kogeka.section>
 
@@ -384,8 +424,7 @@
         </x-slot>
 
         <x-slot name="footer">
-            <x-secondary-button @click="$wire.showModal = false">Annuleren</x-secondary-button>
-            <x-button wire:click="borrowKey(selectedKeyId)" class="ml-2">Wijzigingen opslaan</x-button>
+            <x-secondary-button @click="$wire.showModal = false">Afsluiten</x-secondary-button>
         </x-slot>
 
     </x-dialog-modal>

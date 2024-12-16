@@ -14,6 +14,8 @@ class Payment extends Model
         'deposit_paid',
         'deposit_refunded',
         'payment_method',
+        'deposit_paid_at',
+        'deposit_refunded_at'
     ];
 
     protected $casts = [

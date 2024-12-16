@@ -18,6 +18,8 @@ return new class extends Migration
             $table->boolean('deposit_paid')->default(false); // Boolean om bij te houden of de borg is betaald
             $table->boolean('deposit_refunded')->default(false); // Boolean om bij te houden of de borg is terugbetaald
             $table->enum('payment_method', ['cash', 'payconiq', 'bank_transfer', 'credit_card'])->nullable();
+            $table->timestamp('deposit_paid_at')->nullable();
+            $table->timestamp('deposit_refunded_at')->nullable();
             $table->timestamps();
         });
     }
