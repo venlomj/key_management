@@ -334,7 +334,7 @@ class Persons extends Component
     {
         // $property: The name of the current property being updated
         // $value: The value about to be set to the property
-        if (in_array($property, ['search', 'perPage', 'showModal', 'noDeposit'])) {
+        if (in_array($property, ['search', 'perPage', 'showModal', 'showKeyModal', 'showPersonModal', 'noDeposit'])) {
             $this->resetPage();
         }
     }
