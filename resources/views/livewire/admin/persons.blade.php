@@ -1,6 +1,5 @@
 @php use App\Enums\PaymentMethod; @endphp
-<div>
-    {{-- show preloader while fetching data in the background --}}
+<div class="overflow-hidden min-h-screen">
     <div class="hidden fixed top-8 left-1/2 -translate-x-1/2 z-50 animate-pulse" wire:loading>
         <x-kogeka.preloader class="bg-secondary-100 text-white border border-secondary-100 shadow-2xl">
             {{ $loading }}
@@ -10,7 +9,7 @@
     {{-- Filter --}}
     <x-kogeka.section class="mb-4 flex items-center gap-2">
         <div class="flex-1">
-            <x-kogeka.form.search placeholder="Zoek op voornaam of achternaam"
+            <x-kogeka.form.search placeholder="Zoek op voornaam, achternaam of Roepnaam"
                                   wire:model.live.debounce.500ms="search"
                                   class="placeholder-gray-300"/>
         </div>
@@ -27,8 +26,8 @@
     </x-kogeka.section>
 
     <x-kogeka.section>
+        <div class="my-4 text-blue-400">{{ $persons->links() }}</div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <div class="my-4 text-blue-400">{{ $persons->links() }}</div>
             <table class="min-w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-secondary">
                 <tr>

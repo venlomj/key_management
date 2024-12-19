@@ -1,4 +1,4 @@
-<div class="overflow-hidden h-screen">
+<div class="overflow-hidden min-h-screen">
     <div class="hidden fixed top-8 left-1/2 -translate-x-1/2 z-50 animate-pulse" wire:loading>
         <x-kogeka.preloader class="bg-secondary-100 text-white border border-secondary-100 shadow-2xl">
             {{ $loading }}

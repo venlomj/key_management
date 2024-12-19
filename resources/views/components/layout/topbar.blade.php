@@ -9,5 +9,8 @@
         <x-nav-link href="{{ route('admin.classrooms') }}" class="text-sidebar-dark-light">
             Lokalen
         </x-nav-link>
+        <x-nav-link href="{{ route('admin.key-storage') }}" class="text-sidebar-dark-light">
+            Sleutelkast
+        </x-nav-link>
     </div>
 </nav>

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class KeyCabinetStorage extends Model
 {
-    protected $table = 'key_cabinet_storage';
+    protected $table = 'key_cabinet_storages';
 
     protected $fillable = [
         'key_id',
