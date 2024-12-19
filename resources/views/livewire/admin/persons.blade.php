@@ -9,7 +9,7 @@
     {{-- Filter --}}
     <x-kogeka.section class="mb-4 flex items-center gap-2">
         <div class="flex-1">
-            <x-kogeka.form.search placeholder="Zoek op voornaam of achternaam"
+            <x-kogeka.form.search placeholder="Zoek op voornaam, achternaam of Roepnaam"
                                   wire:model.live.debounce.500ms="search"
                                   class="placeholder-gray-300"/>
         </div>

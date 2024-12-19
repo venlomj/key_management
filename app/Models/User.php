@@ -42,7 +42,8 @@ class User extends Authenticatable
     public function scopeSearchFirstNameOrLastName($query, $search)
     {
         return $query->where('first_name', 'like', '%'.$search.'%')
-            ->orWhere('last_name', 'like', '%'.$search.'%');
+            ->orWhere('last_name', 'like', '%'.$search.'%')
+            ->orWhere('preferred_name', 'like', '%'.$search.'%');
     }
 
     /**
