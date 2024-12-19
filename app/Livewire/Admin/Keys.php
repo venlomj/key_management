@@ -74,15 +74,4 @@ class Keys extends Component
 
         return view('livewire.admin.keys', compact('keys'));
     }
-
-//    #[Layout('layouts.keymanagement', [
-//        'title' => 'Sleutels',
-//        'pageTitle' => 'Sleutels',
-//        'pageSubtitle' => 'Sleutels voor de beheerder',
-//        'description' => 'Hier kan de beheerder de sleutels beheren',
-//    ])]
-//    public function render()
-//    {
-//        return view('livewire.admin.keys');
-//    }
 }

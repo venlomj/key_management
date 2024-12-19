@@ -1,10 +1,10 @@
-<div class="overflow-hidden h-screen">
+<div class="overflow-hidden min-h-screen">
     <div class="hidden fixed top-8 left-1/2 -translate-x-1/2 z-50 animate-pulse" wire:loading>
         <x-kogeka.preloader class="bg-secondary-100 text-white border border-secondary-100 shadow-2xl">
             {{ $loading }}
         </x-kogeka.preloader>
     </div>
-{{--     Filter--}}
+    {{--     Filter--}}
     <x-kogeka.section class="mb-4 flex items-center gap-2">
         <div class="flex-1">
             <x-kogeka.form.search placeholder="Zoek op sleutelcode"
@@ -63,7 +63,7 @@
         <div class="my-4">{{ $keys->links() }}</div>
     </x-kogeka.section>
 
-{{--     Modal for add and update key--}}
+    {{--     Modal for add and update key--}}
     <x-dialog-modal id="keyModal" wire:model.live="showModal" class="w-full max-w-lg mx-auto p-4">
         <x-slot name="title">
             <h2 class="text-lg font-semibold text-center sm:text-left">
@@ -73,9 +73,9 @@
         </x-slot>
 
         <x-slot name="content">
-{{--             error messages--}}
+            {{--             error messages--}}
             <x-kogeka.error-bag/>
-{{--             show only if $form->id is empty--}}
+            {{--             show only if $form->id is empty--}}
             <div class="grid gap-4 sm:grid-cols-2">
                 <div class="flex flex-col">
                     <x-label for="code" value="Sleutelcode" />

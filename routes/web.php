@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Admin\Keys;
+use App\Livewire\Admin\KeyStorage;
 use App\Livewire\Admin\Persons;
 use App\Livewire\Admin\Classrooms;
 use Illuminate\Support\Facades\Route;
@@ -12,6 +13,7 @@ Route::get('/', function () {
 Route::get('admin/keys', Keys::class)->name('admin.keys');
 Route::get('admin/persons', Persons::class)->name('admin.persons');
 Route::get('admin/classrooms', Classrooms::class)->name('admin.classrooms');
+Route::get('admin/key-storage', KeyStorage::class)->name('admin.key-storage');
 
 
 Route::middleware([
