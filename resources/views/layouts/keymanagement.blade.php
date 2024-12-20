@@ -8,6 +8,8 @@
     @livewireStyles
     <!-- Meta Description and Title -->
     <meta name="description" content="{{ $description ?? 'Welcome to Sleutelbeheer' }}">
+    <link rel="stylesheet" href="https://sleutelbeheer.kogeka.app/build/assets/app.9d96761f.css" />
+    <script type="module" src="https://sleutelbeheer.kogeka.app/build/assets/app.ab93cf8a.js"></script>
     <title>{{ $title ?? 'Sleutelbeheer' }}</title>
 </head>
 <body class="font-sans antialiased">

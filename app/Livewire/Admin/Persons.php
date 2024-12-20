@@ -275,6 +275,7 @@ class Persons extends Component
 
     public function showKey(User $person): void
     {
+        $this->form->reset();
         $this->selectedPerson = $person;
         $this->showKeyModal = true;
     }
@@ -325,6 +326,7 @@ class Persons extends Component
         );
 
         // Close the modal after borrowing the keys
+        $this->reset(['selectedKeyIds', 'selectedKeyRemarks', 'filter']);
         $this->showKeyModal = false;
     }
 
