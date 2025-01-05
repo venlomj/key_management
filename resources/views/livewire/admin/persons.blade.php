@@ -185,7 +185,6 @@
 
 
                 {{-- Payment Section --}}
-                {{-- Payment Section --}}
                 <div class="mt-6 sm:col-span-2">
                     <x-label class="block text-sm font-medium text-gray-700">Betalingsinformatie</x-label>
 
@@ -302,14 +301,14 @@
     </x-dialog-modal>
 
     {{-- Modal for person with key --}}
-    <x-dialog-modal id="userKeyModal" wire:model.live="showModal" maxWidth="5xl" class="h-[40vh]" >  <!-- Set height of modal -->
+    <x-dialog-modal id="userKeyModal" wire:model.live="showModal" maxWidth="5xl" class="max-h-[75vh]" >  <!-- Set height of modal -->
         <x-slot name="title">
             <h2 class="text-tertiary-500">Geleende sleutels van {{ $selectedPerson->preferred_name ?? '' }}</h2>
         </x-slot>
 
         <x-slot name="content">
             <x-kogeka.section>
-                <div class="my-4 space-y-4">
+                <div class="my-4 space-y-4 max-h-[60vh] overflow-auto">
                     <div class="flex space-x-6 bg-gray-100 p-4 rounded-lg shadow-md hover:bg-gray-200 transition-colors">
                         <div class="flex-1">
                             <dt class="font-semibold text-gray-700">Naam</dt>
@@ -387,9 +386,9 @@
 
             <div class="mt-4">
                 <!-- Modal Content - Table -->
-                <div class="sm:rounded-lg max-h-[20vh] overflow-hidden">
+                <div class="sm:rounded-lg max-h-[32vh] overflow-hidden">
                     <!-- Add a wrapper div with fixed height and overflow-auto for scrolling -->
-                    <div class="overflow-auto max-h-[20vh]">
+                    <div class="overflow-auto max-h-[32vh]">
                         <table class="min-w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead class="text-xs text-gray-700 uppercase bg-secondary sticky top-0 z-10">
                             <tr>
