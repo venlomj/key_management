@@ -12,21 +12,21 @@ use Livewire\Form;
 class PersonForm extends Form
 {
     public $id = null;
-    #[Validate('required', as: 'De account id')]
+    #[Validate('required', as: 'Account id')]
     public $account_id = null;
-    #[Validate('required', as: 'De achternaam')]
+    #[Validate('required', as: 'Achternaam')]
     public $last_name = null;
-    #[Validate('required', as: 'De voornaam')]
+    #[Validate('required', as: 'Voornaam')]
     public $first_name = null;
     public $employee_code = null;
-    #[Validate('required', as: 'De school')]
+    #[Validate('required', as: 'School')]
     public $institutions = [];
     public $payment;
-    #[Validate('required', as: 'De roepnaam')]
+    //#[Validate('required', as: 'Roepnaam')]
     public $preferred_name = null;
-    #[Validate('required', as: 'Het e-mailadres')]
+    #[Validate('required', as: 'E-mail')]
     public $email = null;
-    //#[Validate('required', as: 'De Betaalmethode')]
+    //#[Validate('required', as: 'Betaalmethode')]
     public $payment_method = null;
     public $deposit_amount = null;
 
