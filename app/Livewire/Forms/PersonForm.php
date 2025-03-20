@@ -23,7 +23,7 @@ class PersonForm extends Form
     public $institutions = [];
     public $payment;
     //#[Validate('required', as: 'Roepnaam')]
-    public $preferred_name = null;
+    //public $preferred_name = null;
     #[Validate('required', as: 'E-mail')]
     public $email = null;
     //#[Validate('required', as: 'Betaalmethode')]
@@ -41,7 +41,7 @@ class PersonForm extends Form
             'account_id' => $this->account_id,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
-            'preferred_name' => $this->preferred_name,
+            //'preferred_name' => $this->preferred_name,
             'employee_code' => $this->employee_code,
             'email' => $this->email,
             'password' => Hash::make('EersteKeer2024!'),
@@ -88,7 +88,7 @@ class PersonForm extends Form
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'employee_code' => $this->employee_code,
-            'preferred_name' => $this->preferred_name,
+            //'preferred_name' => $this->preferred_name,
             'email' => $this->email,
         ]);
 

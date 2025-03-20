@@ -4668,7 +4668,7 @@ CREATE TABLE `users` (
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `admin` tinyint(1) NOT NULL DEFAULT '0',
   `employee_code` varchar(255) DEFAULT NULL,
-  `preferred_name` varchar(255) DEFAULT NULL,
+  --`preferred_name` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,

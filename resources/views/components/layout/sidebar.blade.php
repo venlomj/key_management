@@ -13,6 +13,14 @@
             </a>
         </li>
 
+        <!-- Sleutelbeheer Link -->
+        <li class="relative">
+            <a href="persons" class="focus:bg-sidebar-dark-extra-light hover:bg-sidebar-dark-extra-light flex items-center w-full space-x-2 rounded-md px-10 py-2 text-gray-300 focus:outline-none">
+                <x-heroicon-o-document-text class="w-5 h-5" />
+                <span x-show="!collapsed">Sleutelbeheer</span>
+            </a>
+        </li>
+
         <!-- User Management Section -->
         <li class="relative" x-data="{ openUserManagement: false }">
             <button

@@ -44,7 +44,7 @@
                     <tr wire:key="{{ $person->id }}" class="bg-white border-b-gray-100 hover:bg-blue-50 dark:border-gray-700">
                         <!--
                         <th scope="row" class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap md:px-6 md:py-4">
-                            {{ $person->preferred_name ?? 'Geen roepnaam beschikbaar' }}
+
                         </th>
                         -->
                         <td class="px-4 py-2 md:px-6 md:py-4">{{ $person->first_name ?? 'Geen voornaam beschikbaar' }}</td>
@@ -66,7 +66,7 @@
                                 <x-phosphor-key
                                     class="w-5 text-gray-400 border-gray-300 hover:text-gold"
                                     wire:click="showSelectedPerson({{ $person->id }})"
-                                    data-tippy-content="Klik om de geleende sluetels te zien"
+                                    data-tippy-content="Klik om de geleende sleutels te zien"
                                 />
                                 <button
                                     class="w-6 h-6 text-blue-400 hover:text-blue-500"
@@ -307,7 +307,7 @@
     {{-- Modal for person with key --}}
     <x-dialog-modal id="userKeyModal" wire:model.live="showModal" maxWidth="5xl" class="max-h-[75vh]" >  <!-- Set height of modal -->
         <x-slot name="title">
-            <h2 class="text-tertiary-500">Geleende sleutels van {{ $selectedPerson->preferred_name ?? '' }}</h2>
+            <h2 class="text-tertiary-500">Geleende sleutels van {{ $selectedPerson->first_name ?? '' }}</h2>
         </x-slot>
 
         <x-slot name="content">

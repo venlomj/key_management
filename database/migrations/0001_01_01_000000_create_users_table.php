@@ -19,7 +19,7 @@ return new class extends Migration
             $table->boolean('active')->default(true);
             $table->boolean('admin')->default(false);
             $table->string('employee_code')->nullable();
-            $table->string('preferred_name')->nullable();
+            //$table->string('preferred_name')->nullable();
 
             // Common fields for Laravel authentication
             $table->string('email')->unique()->nullable();
