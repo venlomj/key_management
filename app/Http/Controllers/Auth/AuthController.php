@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use Dcblogdev\MsGraph\Facades\MsGraph;
 use Illuminate\Support\Facades\Auth;
 

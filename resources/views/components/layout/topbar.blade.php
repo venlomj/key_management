@@ -12,7 +12,7 @@
         <x-nav-link href="{{ route('admin.key-storage') }}" class="text-sidebar-dark-light">
             Sleutelkast
         </x-nav-link>
-        <x-nav-link href="{{ route('logout') }}" class="text-sidebar-dark-light">
+        <x-nav-link href="{{ route('logout2') }}" class="text-sidebar-dark-light">
             Logout
         </x-nav-link>
     </div>

@@ -1,4 +1,4 @@
-<nav aria-label="Sidebar Navigation" class="peer-checked:left-0 z-10 flex h-screen flex-col overflow-hidden bg-sidebar-dark text-white transition-all" x-data="{ open: true, collapsed: false }" :class="{ 'w-18': collapsed, 'w-60': !collapsed }">
+<nav aria-label="Sidebar Navigation" class="peer-checked:left-0 z-10 flex h-screen flex-col overflow-hidden bg-sidebar-dark text-white transition-all" x-data="{ open: false, collapsed: true }" :class="{ 'w-18': collapsed, 'w-60': !collapsed }">
     <ul class="flex flex-col h-full mt-8 space-y-3 md:mt-20">
         <!-- Burger Icon Button to toggle sidebar collapse -->
         <button @click="collapsed = !collapsed" class="absolute top-4 right-4 flex justify-end items-center space-x-2">
@@ -169,13 +169,13 @@
     <div class="flex-shrink-0 flex flex-col items-center justify-end pb-4">
         <!-- Expanded Sidebar -->
         <div x-show="!collapsed" class="text-gray-300 text-sm">
-            Murrel Venlo
+{{--            {{MsGraph::get('me')}}--}}
         </div>
 
         <!-- Collapsed Sidebar (Avatar) -->
         <img x-show="collapsed"
              :src="'https://ui-avatars.com/api/?name=' + encodeURIComponent('Murrel Venlo')"
-             alt="Murrel Venlo"
+{{--             alt={{MsGraph::get('me')}}--}}
              class="w-8 h-8 rounded-full" />
     </div>
 </nav>

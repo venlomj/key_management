@@ -15,7 +15,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+//        Gate::define('admin-access', function (User $user) {
+//            return $user->is_admin;
+//        });
+
+        // only grant access to users of that specific school
+//        Gate::define('school-access', function (User $user, Institution $school) {
+//            return Gate::allows('admin-access') || $user->schoolId === $school->schoolId;
+//        });
     }
 
     /**

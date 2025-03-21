@@ -10,6 +10,7 @@ use App\Models\Payment;
 use App\Models\User;
 use App\Models\UserKey;
 use App\Traits\SweetAlertTrait;
+use Illuminate\Auth\Access\Gate;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
