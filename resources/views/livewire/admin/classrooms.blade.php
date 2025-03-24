@@ -62,7 +62,7 @@
                         Instelling
                     </th>
                     <th scope="col" class="px-4 py-2 sm:px-2 md:px-6 md:py-3">
-                        Kort beschrijving
+                        Korte beschrijving
                     </th>
                     <th scope="col" class="px-4 py-2 sm:px-2 md:px-6 md:py-3">
                         Sleutel

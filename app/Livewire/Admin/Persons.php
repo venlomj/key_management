@@ -10,6 +10,7 @@ use App\Models\Payment;
 use App\Models\User;
 use App\Models\UserKey;
 use App\Traits\SweetAlertTrait;
+use Illuminate\Auth\Access\Gate;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -95,7 +96,7 @@ class Persons extends Component
         $this->form->create();
 
         $this->showPersonModal = false;
-        $this->swalToast("De persoon, <b><i>{$this->form->preferred_name}</i></b> is toegevoegd!", 'success', [
+        $this->swalToast("De persoon, <b><i>{$this->form->first_name}</i></b> is toegevoegd!", 'success', [
             'icon' => 'success',
         ]);
     }
@@ -179,7 +180,7 @@ class Persons extends Component
 
         $person->delete();
 
-        $this->swalToast("De persoon <b><i>{$person->preferred_name}</i></b> is verwijderd!", 'success', [
+        $this->swalToast("De persoon <b><i>{$person->first_name}</i></b> is verwijderd!", 'success', [
             'icon' => 'info',
         ]);
 

@@ -1,4 +1,4 @@
-<nav aria-label="Sidebar Navigation" class="peer-checked:left-0 z-10 flex h-screen flex-col overflow-hidden bg-sidebar-dark text-white transition-all" x-data="{ open: true, collapsed: false }" :class="{ 'w-18': collapsed, 'w-60': !collapsed }">
+<nav aria-label="Sidebar Navigation" class="peer-checked:left-0 z-10 flex h-screen flex-col overflow-hidden bg-sidebar-dark text-white transition-all" x-data="{ open: false, collapsed: true }" :class="{ 'w-18': collapsed, 'w-60': !collapsed }">
     <ul class="flex flex-col h-full mt-8 space-y-3 md:mt-20">
         <!-- Burger Icon Button to toggle sidebar collapse -->
         <button @click="collapsed = !collapsed" class="absolute top-4 right-4 flex justify-end items-center space-x-2">
@@ -10,6 +10,14 @@
             <a href="/" class="focus:bg-sidebar-dark-extra-light hover:bg-sidebar-dark-extra-light flex items-center w-full space-x-2 rounded-md px-10 py-2 text-gray-300 focus:outline-none">
                 {{ svg('ri-dashboard-horizontal-fill', 'w-5 h-5 mr-2') }}
                 <span x-show="!collapsed">Dashboard</span>
+            </a>
+        </li>
+
+        <!-- Sleutelbeheer Link -->
+        <li class="relative">
+            <a href="persons" class="focus:bg-sidebar-dark-extra-light hover:bg-sidebar-dark-extra-light flex items-center w-full space-x-2 rounded-md px-10 py-2 text-gray-300 focus:outline-none">
+                <x-heroicon-o-document-text class="w-5 h-5" />
+                <span x-show="!collapsed">Sleutelbeheer</span>
             </a>
         </li>
 
@@ -161,13 +169,13 @@
     <div class="flex-shrink-0 flex flex-col items-center justify-end pb-4">
         <!-- Expanded Sidebar -->
         <div x-show="!collapsed" class="text-gray-300 text-sm">
-            Murrel Venlo
+{{--            {{MsGraph::get('me')}}--}}
         </div>
 
         <!-- Collapsed Sidebar (Avatar) -->
         <img x-show="collapsed"
              :src="'https://ui-avatars.com/api/?name=' + encodeURIComponent('Murrel Venlo')"
-             alt="Murrel Venlo"
+{{--             alt={{MsGraph::get('me')}}--}}
              class="w-8 h-8 rounded-full" />
     </div>
 </nav>

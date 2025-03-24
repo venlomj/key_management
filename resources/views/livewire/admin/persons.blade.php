@@ -9,7 +9,7 @@
     {{-- Filter --}}
     <x-kogeka.section class="mb-4 flex items-center gap-2">
         <div class="flex-1">
-            <x-kogeka.form.search placeholder="Zoek op voornaam, achternaam of Roepnaam"
+            <x-kogeka.form.search placeholder="Zoek op voornaam of achternaam"
                                   wire:model.live.debounce.500ms="search"
                                   class="placeholder-gray-300"/>
         </div>
@@ -31,7 +31,7 @@
             <table class="min-w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-secondary">
                 <tr>
-                    <th scope="col" class="px-4 py-2 md:px-6 md:py-3">Roepnaam</th>
+                    <!--<th scope="col" class="px-4 py-2 md:px-6 md:py-3">Roepnaam</th>-->
                     <th scope="col" class="px-4 py-2 md:px-6 md:py-3">Voornaam</th>
                     <th scope="col" class="px-4 py-2 md:px-6 md:py-3">Achternaam</th>
                     <th scope="col" class="px-4 py-2 md:px-6 md:py-3">School</th>
@@ -42,9 +42,11 @@
                 <tbody>
                 @forelse($persons as $person)
                     <tr wire:key="{{ $person->id }}" class="bg-white border-b-gray-100 hover:bg-blue-50 dark:border-gray-700">
+                        <!--
                         <th scope="row" class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap md:px-6 md:py-4">
-                            {{ $person->preferred_name ?? 'Geen roepnaam beschikbaar' }}
+
                         </th>
+                        -->
                         <td class="px-4 py-2 md:px-6 md:py-4">{{ $person->first_name ?? 'Geen voornaam beschikbaar' }}</td>
                         <td class="px-4 py-2 md:px-6 md:py-4">{{ $person->last_name ?? 'Geen achternaam beschikbaar' }}</td>
                         <td class="px-4 py-2 md:px-6 md:py-4">
@@ -64,7 +66,7 @@
                                 <x-phosphor-key
                                     class="w-5 text-gray-400 border-gray-300 hover:text-gold"
                                     wire:click="showSelectedPerson({{ $person->id }})"
-                                    data-tippy-content="Klik om de geleende sluetels te zien"
+                                    data-tippy-content="Klik om de geleende sleutels te zien"
                                 />
                                 <button
                                     class="w-6 h-6 text-blue-400 hover:text-blue-500"
@@ -152,11 +154,13 @@
                 </div>
 
                 <!-- Preferred Name -->
+                <!--
                 <div class="flex flex-col">
                     <x-label for="preferred_name" value="Roepnaam" />
                     <x-input id="preferred_name" type="text" wire:model.defer="form.preferred_name" placeholder="Roepnaam"
                              class="w-full mt-1" />
                 </div>
+                -->
 
                 <!-- Email -->
                 <div class="flex flex-col">
@@ -184,7 +188,6 @@
                 </div>
 
 
-                {{-- Payment Section --}}
                 {{-- Payment Section --}}
                 <div class="mt-6 sm:col-span-2">
                     <x-label class="block text-sm font-medium text-gray-700">Betalingsinformatie</x-label>
@@ -302,14 +305,14 @@
     </x-dialog-modal>
 
     {{-- Modal for person with key --}}
-    <x-dialog-modal id="userKeyModal" wire:model.live="showModal" maxWidth="5xl" class="h-[40vh]" >  <!-- Set height of modal -->
+    <x-dialog-modal id="userKeyModal" wire:model.live="showModal" maxWidth="5xl" class="max-h-[75vh]" >  <!-- Set height of modal -->
         <x-slot name="title">
-            <h2 class="text-tertiary-500">Geleende sleutels van {{ $selectedPerson->preferred_name ?? '' }}</h2>
+            <h2 class="text-tertiary-500">Geleende sleutels van {{ $selectedPerson->first_name ?? '' }}</h2>
         </x-slot>
 
         <x-slot name="content">
             <x-kogeka.section>
-                <div class="my-4 space-y-4">
+                <div class="my-4 space-y-4 max-h-[60vh] overflow-auto">
                     <div class="flex space-x-6 bg-gray-100 p-4 rounded-lg shadow-md hover:bg-gray-200 transition-colors">
                         <div class="flex-1">
                             <dt class="font-semibold text-gray-700">Naam</dt>
@@ -330,11 +333,14 @@
                             <dd class="text-gray-900">{{ $selectedPerson->account_id ?? '' }}</dd>
                         </div>
                     </div>
+
                     <div class="flex space-x-6 bg-gray-100 p-4 rounded-lg shadow-md hover:bg-gray-200 transition-colors">
+                        <!--
                         <div class="flex-1">
                             <dt class="font-semibold text-gray-700">Roepnaam</dt>
                             <dd class="text-gray-900">{{ $selectedPerson->preferred_name ?? '' }}</dd>
                         </div>
+                        -->
                         <div class="flex-1">
                             <dt class="font-semibold text-gray-700">Werknemer code</dt>
                             <dd class="text-gray-900">{{ $selectedPerson->employee_id ?? '' }}</dd>
@@ -387,9 +393,9 @@
 
             <div class="mt-4">
                 <!-- Modal Content - Table -->
-                <div class="sm:rounded-lg max-h-[20vh] overflow-hidden">
+                <div class="sm:rounded-lg max-h-[32vh] overflow-hidden">
                     <!-- Add a wrapper div with fixed height and overflow-auto for scrolling -->
-                    <div class="overflow-auto max-h-[20vh]">
+                    <div class="overflow-auto max-h-[32vh]">
                         <table class="min-w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead class="text-xs text-gray-700 uppercase bg-secondary sticky top-0 z-10">
                             <tr>

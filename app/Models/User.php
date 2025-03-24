@@ -28,7 +28,7 @@ class User extends Authenticatable
         'admin',
         'employee_code',
         'date_of_birth',
-        'preferred_name',
+        //'preferred_name',
         'to_keep',
         'email',
         'password',
@@ -42,8 +42,8 @@ class User extends Authenticatable
     public function scopeSearchFirstNameOrLastName($query, $search)
     {
         return $query->where('first_name', 'like', '%'.$search.'%')
-            ->orWhere('last_name', 'like', '%'.$search.'%')
-            ->orWhere('preferred_name', 'like', '%'.$search.'%');
+            ->orWhere('last_name', 'like', '%'.$search.'%');
+            //->orWhere('preferred_name', 'like', '%'.$search.'%');
     }
 
     /**
